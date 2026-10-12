@@ -44,7 +44,22 @@
 
         <div class="form-group">
             <label>Звание:</label>
-            <input type="text" th:field="*{rank}" required />
+            <select th:field="*{rank}" required>
+                <option value="">— выберите звание —</option>
+                <option th:each="r : ${ranks}"
+                        th:value="${r.id}"
+                        th:text="${r.title}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Адрес:</label>
+            <select th:field="*{address}" required>
+                <option value="">— выберите адрес —</option>
+                <option th:each="a : ${addresses}"
+                        th:value="${a.id}"
+                        th:text="${a.country + ', ' + a.city + ', ' + a.street + ', д. ' + a.house}"></option>
+            </select>
         </div>
 
         <div class="form-group" style="margin-top: 20px;">

@@ -46,7 +46,17 @@
 
     <div class="details-row">
         <span class="details-label">Звание:</span>
-        <span th:text="${serviceman.rank}"></span>
+        <span th:text="${serviceman.rank != null ? serviceman.rank.title : '—'}"></span>
+    </div>
+
+    <div class="details-row">
+        <span class="details-label">Адрес:</span>
+        <span th:text="${serviceman.address != null
+        ? (serviceman.address.postIndex + ', ' + serviceman.address.country + ', '
+         + serviceman.address.region + ', ' + serviceman.address.city + ', '
+         + serviceman.address.street + ', д. ' + serviceman.address.house
+         + (serviceman.address.apartment != null ? ', кв. ' + serviceman.address.apartment : ''))
+        : '—'}"></span>
     </div>
 
     <div style="margin-top: 25px;">

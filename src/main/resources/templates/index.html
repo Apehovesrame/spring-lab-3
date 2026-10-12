@@ -28,7 +28,7 @@
             <td th:text="${person.id}"></td>
             <td th:text="${person.surname} + ' ' + ${person.name} + ' ' + ${person.patronymic}"></td>
             <td th:text="${person.position}"></td>
-            <td th:text="${person.rank}"></td>
+            <td th:text="${person.rank != null ? person.rank.title : '—'}"></td>
             <td>
                 <a class="btn btn-secondary" th:href="@{'/servicemen/details/' + ${person.id}}">Инфо</a>
                 <a class="btn btn-warning" th:href="@{'/servicemen/edit/' + ${person.id}}">Изменить</a>

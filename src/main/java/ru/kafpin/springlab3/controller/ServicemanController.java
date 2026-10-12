@@ -1,10 +1,12 @@
-package ru.kafpin.springlab2.controller;
+package ru.kafpin.springlab3.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kafpin.springlab2.model.Serviceman;
-import ru.kafpin.springlab2.repository.ServicemanRepository;
+import ru.kafpin.springlab3.model.Serviceman;
+import ru.kafpin.springlab3.repository.ServicemanRepository;
+import ru.kafpin.springlab3.repository.RankRepository;
+import ru.kafpin.springlab3.repository.AddressRepository;
 
 import java.util.Optional;
 
@@ -13,19 +15,24 @@ import java.util.Optional;
 public class ServicemanController {
 
     private final ServicemanRepository repository;
+    private final RankRepository rankRepository;
+    private final AddressRepository addressRepository;
 
-    public ServicemanController(ServicemanRepository repository) {
+    // Внедряем все три репозитория через конструктор
+    public ServicemanController(ServicemanRepository repository,
+                                RankRepository rankRepository,
+                                AddressRepository addressRepository) {
         this.repository = repository;
+        this.rankRepository = rankRepository;
+        this.addressRepository = addressRepository;
     }
 
-    // Получение списка всех сущностей
     @GetMapping
     public String getAll(Model model) {
         model.addAttribute("servicemen", repository.findAll());
         return "index";
     }
 
-    // Получение одной сущности по id
     @GetMapping("/details/{id}")
     public String details(@PathVariable("id") Long id, Model model) {
         Optional<Serviceman> optional = repository.findById(id);
@@ -36,21 +43,21 @@ public class ServicemanController {
         return "details";
     }
 
-    // Страница добавления
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("serviceman", new Serviceman());
+        // Передаем списки для выпадающих меню в форме
+        model.addAttribute("ranks", rankRepository.findAll());
+        model.addAttribute("addresses", addressRepository.findAll());
         return "form";
     }
 
-    // Сохранение
     @PostMapping("/save")
     public String save(@ModelAttribute Serviceman serviceman) {
         repository.save(serviceman);
         return "redirect:/servicemen";
     }
 
-    // Страница изменения
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable("id") Long id, Model model) {
         Optional<Serviceman> optional = repository.findById(id);
@@ -58,10 +65,12 @@ public class ServicemanController {
             return "redirect:/servicemen";
         }
         model.addAttribute("serviceman", optional.get());
+        // Передаем списки для выпадающих меню при редактировании
+        model.addAttribute("ranks", rankRepository.findAll());
+        model.addAttribute("addresses", addressRepository.findAll());
         return "form";
     }
 
-    // Удаление по id
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         if (repository.existsById(id)) {

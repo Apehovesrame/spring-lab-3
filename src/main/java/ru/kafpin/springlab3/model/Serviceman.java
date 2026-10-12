@@ -1,4 +1,4 @@
-package ru.kafpin.springlab2.model;
+package ru.kafpin.springlab3.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -20,9 +20,24 @@ public class Serviceman {
     private LocalDate birthDate;
 
     private String position;
-    private String rank;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "rank_id", nullable = false)
+    private Rank rank;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
 
     public Serviceman() {}
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
@@ -80,11 +95,11 @@ public class Serviceman {
         this.position = position;
     }
 
-    public String getRank() {
+    public Rank getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 }
