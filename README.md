@@ -25,3 +25,9 @@
 5. **Связывание с интерфейсом:** Реализация методов в контроллере для передачи списков всех военнослужащих, званий и адресов на HTML-страницы. Внедрение выпадающих списков (тегов `<select>`) в формы добавления и редактирования для корректного сохранения связанных объектов.
 
 ## Скриншоты работы приложения
+<img width="1614" height="598" alt="image" src="https://github.com/user-attachments/assets/606382f5-1448-4cd6-b562-5e644bb783ab" />
+<img width="1608" height="788" alt="image" src="https://github.com/user-attachments/assets/d3fa225a-82a1-44a2-9760-b802cc4438b8" />
+<img width="1628" height="1263" alt="image" src="https://github.com/user-attachments/assets/05730727-881a-46bd-ab75-24cfb2e55b79" />
+<img width="1592" height="578" alt="image" src="https://github.com/user-attachments/assets/34988422-1d9c-4309-9155-b79587cf6c94" />
+
+
